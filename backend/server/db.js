@@ -1,6 +1,7 @@
 require("dotenv").config();
 const pg = require("pg");
 const uuid = require("uuid");
+const bcrypt = require("bcryptjs");
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
@@ -20,8 +21,8 @@ async function createTable() {
       name VARCHAR(255) NOT NULL,
       email_address VARCHAR(255) NOT NULL UNIQUE,
       phone VARCHAR(20) NOT NULL,
-      shipping_address TEXT NOT NULL,
       mailing_address TEXT NOT NULL,
+      billing_information TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
@@ -53,8 +54,8 @@ async function createTable() {
       user_id UUID REFERENCES users(id) ON DELETE SET NULL,
       total_price DECIMAL (10, 2) NOT NULL CHECK(total_price > 0),
       status VARCHAR(20) DEFAULT 'created',
-      shipping_address TEXT NOT NULL,
       mailing_address TEXT NOT NULL,
+      billing_information TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
@@ -90,9 +91,11 @@ async function fetchProductById(productId) {
     `,
     [productId]
   );
+
+  return product;
 }
 
-// admin prodducts methods
+// admin products methods
 async function createProduct({ name, description, price, image_url, stock }) {
   const {
     rows: [product],
@@ -136,6 +139,108 @@ async function deleteProduct(productId) {
   );
 }
 
+// user methods
+async function createUser({
+  username,
+  password,
+  name,
+  email_address,
+  phone,
+  mailing_address,
+  billing_information,
+}) {
+  const hashed_password = await bcrypt.hash(password, 10);
+
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+    INSERT INTO users (id, username, password, name, email_address, phone, mailing_address, billing_information)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    RETURNING id, username, name, email_address, created_at
+    `,
+    [
+      uuid.v4(),
+      username,
+      hashed_password,
+      name,
+      email_address,
+      phone,
+      mailing_address,
+      billing_information,
+    ]
+  );
+
+  return user;
+}
+
+async function fetchUserById(userId) {
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+    SELECT id, name, username, email_address, mailing_address FROM users 
+    WHERE id = $1
+    `,
+    [userId]
+  );
+
+  return user;
+}
+
+async function updateUserProfile(
+  userId,
+  { name, email_address, phone, mailing_address, billing_information }
+) {
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+    UPDATE users
+    SET name = $1, email_address = $2, phone = $3, mailing_address = $4, billing_information = $5, updated_at = CURRENT_TIMESTAMP
+    WHERE id = $6
+    RETURNING id, username, name, email_address, phone, mailing_address, billing_information
+    `,
+    [name, email_address, phone, mailing_address, billing_information, userId]
+  );
+
+  return user;
+}
+
+// admin users methods
+async function fetchUsers() {
+  const { rows } = await client.query(
+    `SELECT id, username, name, email_address, phone, mailing_address, billing_information FROM users`
+  );
+
+  return rows;
+}
+
+async function makeAdmin(userId) {
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+    UPDATE users
+    SET is_admin = TRUE, updated_at = CURRENT_TIMESTAMP
+    WHERE id = $1
+    RETURNING id, username, is_admin
+    `,
+    [userId]
+  );
+
+  return user;
+}
+
+async function deleteUser(userId) {
+  await client.query(
+    `
+    DELETE FROM users WHERE id = $1
+    `,
+    [userId]
+  );
+}
+
 module.exports = {
   client,
   createTable,
@@ -144,4 +249,10 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  createUser,
+  fetchUserById,
+  updateUserProfile,
+  fetchUsers,
+  makeAdmin,
+  deleteUser,
 };
