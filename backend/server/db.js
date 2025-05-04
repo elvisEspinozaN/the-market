@@ -2,6 +2,8 @@ require("dotenv").config();
 const pg = require("pg");
 const uuid = require("uuid");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_secret;
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
@@ -241,6 +243,42 @@ async function deleteUser(userId) {
   );
 }
 
+// auth methods
+async function authenticate(username, password) {
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+    SELECT * FROM users WHERE username = $1
+    `,
+    [username]
+  );
+
+  if (user && (await bcrypt.compare(password, user.password))) {
+    return user;
+  }
+
+  return null;
+}
+
+async function findUserByToken(token) {
+  try {
+    const { id } = jwt.verify(token, JWT_SECRET);
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+    SELECT id, username, name, email_address, phone, mailing_address, billing_information, is_admin FROM users
+    WHERE id = $1
+    `,
+      [id]
+    );
+    return user;
+  } catch (error) {
+    return null;
+  }
+}
+
 module.exports = {
   client,
   createTable,
@@ -255,4 +293,6 @@ module.exports = {
   fetchUsers,
   makeAdmin,
   deleteUser,
+  authenticate,
+  findUserByToken,
 };
