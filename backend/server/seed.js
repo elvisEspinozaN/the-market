@@ -1,7 +1,11 @@
-const { createTable, client } = require("./db");
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
+const { client, createTable } = require("./db");
 
 async function seed() {
   await client.connect();
+
   await createTable();
   console.log("\n- Tables created");
 
