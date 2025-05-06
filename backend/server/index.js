@@ -1,7 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
-const { client } = require("./db");
+const {
+  client,
+  fetchProducts,
+  fetchProductById,
+  findUserByToken,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} = require("./db");
 
 const app = express();
 client.connect();
@@ -10,5 +18,107 @@ client.connect();
 app.use(express.json());
 app.use(morgan("dev"));
 
+// auth middleware
+app.use(async (req, res, next) => {
+  try {
+    const token = req.header("Authorization")?.replace("Bearer ", "");
+
+    if (token) {
+      const user = await findUserByToken(token);
+      if (!user?.id) {
+        return res.status(401).json({
+          error: "Invalid or expired token",
+        });
+      }
+
+      req.user = user;
+    }
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
+
+function requiredUser(req, res, next) {
+  if (!req.user) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+  next();
+}
+
+function isAdmin(req, res, next) {
+  if (!req.user?.is_admin) {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+  next();
+}
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`- Server listening on port ${port}`));
+
+// product routes
+app.get("/api/products", async (req, res, next) => {
+  try {
+    const products = await fetchProducts();
+    res.json(products);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get("/api/products/:id", async (req, res, next) => {
+  try {
+    const product = await fetchProductById(req.params.id);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).send({ error: "Product not found" });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// admin product routes
+app.post(
+  "/api/admin/products",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const product = await createProduct(req.body);
+      res.status(201).json(product);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+app.put(
+  "/api/admin/products/:id",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const product = await updateProduct(req.params.id, req.body);
+      res.json(product);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+app.delete(
+  "/api/admin/products/:id",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      await deleteProduct(req.params.id);
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  }
+);

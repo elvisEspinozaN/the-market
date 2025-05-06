@@ -295,6 +295,10 @@ async function getCart(userId) {
 }
 
 async function addToCart(userId, productId, quantity) {
+  const product = await fetchProductById(productId);
+  if (!product || product.stock < quantity) {
+    throw new Error("Low Stock or Not available");
+  }
   const {
     rows: [item],
   } = await client.query(
