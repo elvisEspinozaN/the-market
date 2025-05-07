@@ -16,6 +16,11 @@ const {
   fetchUsers,
   makeAdmin,
   deleteUser,
+  getCart,
+  addToCart,
+  updateCartItem,
+  removeFromCart,
+  checkoutCart,
 } = require("./db");
 const jwt = require("jsonwebtoken");
 
@@ -126,6 +131,59 @@ app.put("/api/auth/me", requiredUser, async (req, res, next) => {
   try {
     const updatedUser = await updateUserProfile(req.user.id, req.body);
     res.json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// cart routes
+app.get("/api/cart", requiredUser, async (req, res, next) => {
+  try {
+    const cart = await getCart(req.user.id);
+    res.json(cart);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post("/api/cart", requiredUser, async (req, res, next) => {
+  try {
+    const cartItem = await addToCart(
+      req.user.id,
+      req.body.productId,
+      req.body.quantity
+    );
+    res.json(cartItem);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put("/api/cart/:cartItemId", requiredUser, async (req, res, next) => {
+  try {
+    const updatedItem = await updateCartItem(
+      req.params.cartItemId,
+      req.body.quantity
+    );
+    res.json(updatedItem);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete("/api/cart/:cartItemId", requiredUser, async (req, res, next) => {
+  try {
+    await removeFromCart(req.params.cartItemId);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post("/api/checkout", requiredUser, async (req, res, next) => {
+  try {
+    await checkoutCart(req.user.id);
+    res.json({ message: "Checkout successful!" });
   } catch (err) {
     next(err);
   }

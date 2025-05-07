@@ -97,50 +97,6 @@ async function fetchProductById(productId) {
   return product;
 }
 
-// admin products methods
-async function createProduct({ name, description, price, image_url, stock }) {
-  const {
-    rows: [product],
-  } = await client.query(
-    `
-    INSERT INTO products (id, name, description, price, image_url, stock)
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING *
-    `,
-    [uuid.v4(), name, description, price, image_url, stock]
-  );
-
-  return product;
-}
-
-async function updateProduct(
-  productId,
-  { name, description, price, image_url, stock, is_active }
-) {
-  const {
-    rows: [product],
-  } = await client.query(
-    `
-    UPDATE products
-    SET name = $1, description = $2, price = $3, image_url = $4, stock = $5, is_active = $6, updated_at = CURRENT_TIMESTAMP
-    WHERE id = $7
-    RETURNING *
-    `,
-    [name, description, price, image_url, stock, is_active, productId]
-  );
-
-  return product;
-}
-
-async function deleteProduct(productId) {
-  await client.query(
-    `
-    DELETE FROM products WHERE id = $1
-    `,
-    [productId]
-  );
-}
-
 // user methods
 async function createUser({
   username,
@@ -207,40 +163,6 @@ async function updateUserProfile(
   );
 
   return user;
-}
-
-// admin users methods
-async function fetchUsers() {
-  const { rows } = await client.query(
-    `SELECT id, username, name, email_address, phone, mailing_address, billing_information FROM users`
-  );
-
-  return rows;
-}
-
-async function makeAdmin(userId) {
-  const {
-    rows: [user],
-  } = await client.query(
-    `
-    UPDATE users
-    SET is_admin = TRUE, updated_at = CURRENT_TIMESTAMP
-    WHERE id = $1
-    RETURNING id, username, is_admin
-    `,
-    [userId]
-  );
-
-  return user;
-}
-
-async function deleteUser(userId) {
-  await client.query(
-    `
-    DELETE FROM users WHERE id = $1
-    `,
-    [userId]
-  );
 }
 
 // auth methods
@@ -346,6 +268,84 @@ async function checkoutCart(userId) {
     `
     DELETE FROM cart_items 
     WHERE id = $1
+    `,
+    [userId]
+  );
+}
+
+// admin products methods
+async function createProduct({ name, description, price, image_url, stock }) {
+  const {
+    rows: [product],
+  } = await client.query(
+    `
+    INSERT INTO products (id, name, description, price, image_url, stock)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *
+    `,
+    [uuid.v4(), name, description, price, image_url, stock]
+  );
+
+  return product;
+}
+
+async function updateProduct(
+  productId,
+  { name, description, price, image_url, stock, is_active }
+) {
+  const {
+    rows: [product],
+  } = await client.query(
+    `
+    UPDATE products
+    SET name = $1, description = $2, price = $3, image_url = $4, stock = $5, is_active = $6, updated_at = CURRENT_TIMESTAMP
+    WHERE id = $7
+    RETURNING *
+    `,
+    [name, description, price, image_url, stock, is_active, productId]
+  );
+
+  return product;
+}
+
+async function deleteProduct(productId) {
+  await client.query(
+    `
+    DELETE FROM products WHERE id = $1
+    `,
+    [productId]
+  );
+}
+
+// admin users methods
+async function fetchUsers() {
+  const { rows } = await client.query(
+    `SELECT id, username, name, email_address, phone, mailing_address, billing_information FROM users`
+  );
+
+  return rows;
+}
+
+async function makeAdmin(userId) {
+  const {
+    rows: [user],
+  } = await client.query(
+    `
+    UPDATE users
+    SET is_admin = TRUE, updated_at = CURRENT_TIMESTAMP
+    WHERE id = $1
+    RETURNING id, username, is_admin
+    `,
+    [userId]
+  );
+
+  return user;
+}
+
+async function deleteUser(userId) {
+  await client.query(
+    `
+    DELETE FROM users WHERE id = $1
     `,
     [userId]
   );
