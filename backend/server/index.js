@@ -9,7 +9,15 @@ const {
   createProduct,
   updateProduct,
   deleteProduct,
+  createUser,
+  authenticate,
+  fetchUserById,
+  updateUserProfile,
+  fetchUsers,
+  makeAdmin,
+  deleteUser,
 } = require("./db");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 client.connect();
@@ -80,6 +88,49 @@ app.get("/api/products/:id", async (req, res, next) => {
   }
 });
 
+// auth routes
+app.post("/api/auth/register", async (req, res, next) => {
+  try {
+    const user = await createUser(req.body);
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    res.status(201).json({ user, token });
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post("/api/auth/login", async (req, res, next) => {
+  try {
+    const user = await authenticate(req.body.username, req.body.password);
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+    res.json({ user, token });
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.get("/api/auth/me", requiredUser, async (req, res, next) => {
+  try {
+    const user = await fetchUserById(req.user.id);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.put("/api/auth/me", requiredUser, async (req, res, next) => {
+  try {
+    const updatedUser = await updateUserProfile(req.user.id, req.body);
+    res.json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // admin product routes
 app.post(
   "/api/admin/products",
@@ -116,6 +167,44 @@ app.delete(
   async (req, res, next) => {
     try {
       await deleteProduct(req.params.id);
+      res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// admin auth routes
+app.get("/api/admin/users", requiredUser, isAdmin, async (req, res, next) => {
+  try {
+    const users = await fetchUsers();
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post(
+  "/api/admin/users/:id/make-admin",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const updatedUser = await makeAdmin(req.params.id);
+      res.json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+app.delete(
+  "/api/admin/users/:id",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      await deleteUser(req.params.id);
       res.sendStatus(204);
     } catch (err) {
       next(err);
