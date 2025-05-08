@@ -267,7 +267,7 @@ async function checkoutCart(userId) {
   await client.query(
     `
     DELETE FROM cart_items 
-    WHERE id = $1
+    WHERE user_id = $1
     `,
     [userId]
   );
