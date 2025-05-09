@@ -1,0 +1,77 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 350px;
+  margin-bottom: 3rem;
+  border-radius: 12px;
+}
+
+.hero img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  max-width: 50%;
+  padding: 3rem;
+  color: #001f3f;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heroContainer h1 {
+  font-size: 2.8rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.heroContainer p {
+  font-size: 1.3rem;
+  max-width: 400px;
+}
+
+.featuredProducts {
+  margin-top: 3rem;
+}
+
+.featuredProducts h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: dimgray;
+}
+
+.productsGrid {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.productsGrid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.productsGrid::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.productsGrid > * {
+  flex: 0 0 auto;
+  width: 250px;
+}
