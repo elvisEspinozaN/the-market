@@ -1,0 +1,76 @@
+.productCard {
+  position: relative;
+  background-color: floralwhite;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.productCard a {
+  text-decoration: none;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.productImage {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.productDetails {
+  padding: 1.2rem;
+  position: relative;
+}
+
+.productName {
+  font-size: 1.2rem;
+  color: dimgray;
+  margin-bottom: 0.4rem;
+}
+
+.productPrice {
+  font-size: 1.5rem;
+  color: darkslateblue;
+  font-weight: 700;
+}
+
+.productWishlistButton {
+  position: absolute;
+  height: 36px;
+  width: 36px;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(255, 250, 240, 0.9);
+  border: 1px solid;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.productWishlistButton:hover {
+  background-color: floralwhite;
+  transform: scale(1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.productWishlistButton::before {
+  content: "♥";
+  font-size: 1.2rem;
+  color: dimgray;
+  transition: color 0.2s ease;
+}
+
+.productWishlistButton:hover::before {
+  color: red;
+}

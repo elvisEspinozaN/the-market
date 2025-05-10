@@ -23,6 +23,7 @@ const {
   checkoutCart,
 } = require("./db");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
 
 const app = express();
 client.connect();
@@ -30,6 +31,7 @@ client.connect();
 // middleware
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
 
 // auth middleware
 app.use(async (req, res, next) => {
