@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const authApiSlice = createApi({
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api/auth",
     prepareHeaders: (headers, { getState }) => {
@@ -13,7 +14,6 @@ export const authApiSlice = createApi({
       return headers;
     },
   }),
-
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
@@ -21,6 +21,7 @@ export const authApiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: [],
     }),
 
     register: builder.mutation({
@@ -29,6 +30,7 @@ export const authApiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: [],
     }),
   }),
 });

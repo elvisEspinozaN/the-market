@@ -22,9 +22,9 @@ async function createTable() {
       is_admin BOOLEAN DEFAULT FALSE,
       name VARCHAR(255) NOT NULL,
       email_address VARCHAR(255) NOT NULL UNIQUE,
-      phone VARCHAR(20) NOT NULL,
-      mailing_address TEXT NOT NULL,
-      billing_information TEXT NOT NULL,
+      phone VARCHAR(20),
+      mailing_address TEXT,
+      billing_information TEXT,
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
     );
@@ -103,9 +103,9 @@ async function createUser({
   password,
   name,
   email_address,
-  phone,
-  mailing_address,
-  billing_information,
+  phone = null,
+  mailing_address = null,
+  billing_information = null,
 }) {
   const hashed_password = await bcrypt.hash(password, 10);
 
