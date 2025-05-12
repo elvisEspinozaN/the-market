@@ -4,6 +4,7 @@ export const authApiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api/auth",
     prepareHeaders: (headers, { getState }) => {
+      // get token
       const token = getState().auth.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
