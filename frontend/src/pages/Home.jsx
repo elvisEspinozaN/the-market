@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 
 const Home = () => {
   const { data: products, isLoading, error } = useGetProductsQuery();
+
   return (
     <div className={styles.container}>
       <header className={styles.hero}>

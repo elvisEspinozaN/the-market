@@ -1,0 +1,167 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.productDetail {
+  background: floralwhite;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.priceStockContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.price {
+  font-size: 2rem;
+  color: darkslateblue;
+  font-weight: 700;
+}
+
+.stockAlert {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.soldOut {
+  background-color: #ffe3e3;
+  color: #dc3545;
+  padding: 1rem;
+  text-align: center;
+}
+
+.lowStock {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.addToCart {
+  background: darkslateblue;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addToCart:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.addToCart:hover:not(:disabled) {
+  background: #1a335c;
+}
+
+.addToWishlist {
+  background: transparent;
+  border: 2px solid darkslateblue;
+  color: darkslateblue;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addToWishlist:hover {
+  background: rgba(72, 61, 139, 0.1);
+}
+
+.tabContainer {
+  grid-column: 1 / -1;
+  margin-top: 2rem;
+}
+
+.tabButtons {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tabButtons button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: dimgray;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tabButtons button:hover {
+  color: darkslateblue;
+}
+
+.tabButtons .activeTab {
+  color: darkslateblue;
+  font-weight: 600;
+  border-bottom: 2px solid darkslateblue;
+}
+
+.relatedContainer {
+  background-color: floralwhite;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.relatedContainer h2 {
+  margin-bottom: 1.5rem;
+}
+
+.relatedGrid {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.relatedGrid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.relatedGrid::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+.relatedGrid > * {
+  flex: 0 0 auto;
+  width: 200px;
+}
