@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/Navigation.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../app/authSlice";
 
 const Navigation = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   return (
     <nav className={styles.nav}>
       <div className={styles.navContainer}>
@@ -17,13 +28,25 @@ const Navigation = () => {
           <Link to="/products" className={styles.navLink}>
             Shop
           </Link>
-          <Link to="/" className={styles.navLink}>
-            Wishlist
-          </Link>
-          <Link to="/" className={styles.navLink}>
-            Profile
-          </Link>
-          <Link to="/" className={styles.navLink}>
+
+          {user ? (
+            <>
+              {user.is_admin && (
+                <Link to="/admin" className={styles.navLink}>
+                  Dashboard
+                </Link>
+              )}
+              <Link to="/profile" className={styles.navLink}>
+                {user.username}{" "}
+              </Link>
+              <button onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <Link to="/login" className={styles.navLink}>
+              Login
+            </Link>
+          )}
+          <Link to="/cart" className={styles.navLink}>
             Cart
           </Link>
         </div>
