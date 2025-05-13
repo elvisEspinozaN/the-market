@@ -43,3 +43,16 @@
   flex-grow: 1;
   max-width: 300px;
 }
+
+.navLinks button {
+  background: none;
+  border: none;
+  color: dimgray;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.navLinks button:hover {
+  color: darkslateblue;
+}
