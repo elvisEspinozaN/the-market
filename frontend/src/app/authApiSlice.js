@@ -6,11 +6,10 @@ export const authApiSlice = createApi({
     baseUrl: "http://localhost:3000/api/auth",
     prepareHeaders: (headers, { getState }) => {
       // get token
-      const token = getState().auth.token;
+      const token = getState().auth.token || localStorage.getItem("token");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
-
       return headers;
     },
   }),
@@ -21,7 +20,6 @@ export const authApiSlice = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: [],
     }),
 
     register: builder.mutation({
@@ -30,7 +28,6 @@ export const authApiSlice = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: [],
     }),
   }),
 });

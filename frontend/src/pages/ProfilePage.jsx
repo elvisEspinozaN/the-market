@@ -44,7 +44,10 @@ const ProfilePage = () => {
       const updatedUser = await updateProfile(formData).unwrap();
       dispatch(
         setCredentials({
-          user: updatedUser,
+          user: {
+            ...user,
+            ...updatedUser,
+          },
           token: localStorage.getItem("token"),
         })
       );
@@ -73,7 +76,10 @@ const ProfilePage = () => {
 
       dispatch(
         setCredentials({
-          user: updatedEmail,
+          user: {
+            ...user,
+            ...updatedEmail,
+          },
           token: localStorage.getItem("token"),
         })
       );

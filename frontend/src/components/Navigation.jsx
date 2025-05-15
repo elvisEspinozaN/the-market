@@ -37,7 +37,7 @@ const Navigation = () => {
                 </Link>
               )}
               <Link to="/profile" className={styles.navLink}>
-                {user.username}{" "}
+                Profile
               </Link>
               <button onClick={handleLogout}>Logout</button>
             </>

@@ -146,22 +146,26 @@ async function fetchUserById(userId) {
   return user;
 }
 
-async function updateUserProfile(
-  userId,
-  { name, email_address, phone, mailing_address, billing_information }
-) {
+async function updateUserProfile(userId, updates) {
   const {
     rows: [user],
   } = await client.query(
-    `
-    UPDATE users
-    SET name = $1, email_address = $2, phone = $3, mailing_address = $4, billing_information = $5, updated_at = CURRENT_TIMESTAMP
-    WHERE id = $6
-    RETURNING id, username, name, email_address, phone, mailing_address, billing_information
-    `,
-    [name, email_address, phone, mailing_address, billing_information, userId]
+    `UPDATE users
+     SET name = $1, email_address = $2, phone = $3, 
+         mailing_address = $4, billing_information = $5,
+         updated_at = NOW()
+     WHERE id = $6
+     RETURNING id, username, name, email_address, 
+               phone, mailing_address, billing_information, is_admin`,
+    [
+      updates.name,
+      updates.email_address,
+      updates.phone,
+      updates.mailing_address,
+      updates.billing_information,
+      userId,
+    ]
   );
-
   return user;
 }
 
