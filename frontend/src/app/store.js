@@ -1,21 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
-import { authApiSlice } from "./authApiSlice";
-import { productApi } from "./productApiSlice";
+import apiSlice from "./apiSlice";
 
 export const store = configureStore({
   reducer: {
     // state management
     auth: authReducer,
-    // auth api calls
-    [authApiSlice.reducerPath]: authApiSlice.reducer,
-    // product api calls
-    [productApi.reducerPath]: productApi.reducer,
+    // [apiSlice.reducerPath]: apiSlice.reducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(authApiSlice.middleware)
-      .concat(productApi.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 export default store;

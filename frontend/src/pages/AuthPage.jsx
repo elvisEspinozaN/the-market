@@ -30,7 +30,6 @@ const AuthPage = () => {
         : await register(formData).unwrap();
 
       dispatch(setCredentials({ token: response.token, user: response.user }));
-      console.log(response);
 
       navigate("/");
     } catch (err) {

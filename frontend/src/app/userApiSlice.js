@@ -8,8 +8,9 @@ export const userApi = apiSlice.injectEndpoints({
         method: "PUT",
         body,
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
 
-export const { useUpdateProfile } = userApi;
+export const { useUpdateProfileMutation } = userApi;
