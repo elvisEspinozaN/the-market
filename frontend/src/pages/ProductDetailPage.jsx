@@ -1,8 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  useGetProductByIdQuery,
-  useGetProductsQuery,
-} from "../app/productApiSlice";
+import { useGetProductByIdQuery, useGetProductsQuery } from "../app/productApi";
 import styles from "../styles/ProductDetailPage.module.css";
 import ProductCard from "../components/ProductCard";
 import { useState } from "react";

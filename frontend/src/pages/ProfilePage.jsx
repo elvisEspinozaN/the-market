@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateProfileMutation } from "../app/userApiSlice";
+import { useUpdateProfileMutation } from "../app/userApi";
 import { logout, setCredentials } from "../app/authSlice";
 import { useNavigate } from "react-router-dom";
 

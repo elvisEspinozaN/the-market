@@ -1,4 +1,4 @@
-import { useGetProductsQuery } from "../app/productApiSlice";
+import { useGetProductsQuery } from "../app/productApi";
 import styles from "../styles/ProductsPage.module.css";
 import ProductCard from "../components/ProductCard";
 
