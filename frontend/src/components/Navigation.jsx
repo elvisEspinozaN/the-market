@@ -32,7 +32,7 @@ const Navigation = () => {
           {user ? (
             <>
               {user.is_admin && (
-                <Link to="/admin" className={styles.navLink}>
+                <Link to="/dashboard" className={styles.navLink}>
                   Dashboard
                 </Link>
               )}
