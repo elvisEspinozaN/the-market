@@ -244,6 +244,20 @@ app.get("/api/admin/users", requiredUser, isAdmin, async (req, res, next) => {
   }
 });
 
+app.put(
+  "/api/admin/users/:id",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const updateUser = await updateUserProfile(req.params.id, req.body);
+      res.json(updateUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 app.post(
   "/api/admin/users/:id/make-admin",
   requiredUser,
