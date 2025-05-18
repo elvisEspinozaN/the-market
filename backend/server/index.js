@@ -238,6 +238,7 @@ app.delete(
 app.get("/api/admin/users", requiredUser, isAdmin, async (req, res, next) => {
   try {
     const users = await fetchUsers();
+
     res.json(users);
   } catch (err) {
     next(err);

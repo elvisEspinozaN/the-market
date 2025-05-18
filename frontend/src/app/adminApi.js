@@ -23,6 +23,15 @@ export const adminApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Users"],
     }),
 
+    updateUser: builder.mutation({
+      query: ({ userId, ...body }) => ({
+        url: `/admin/users/${userId}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Users"],
+    }),
+
     createProduct: builder.mutation({
       query: (body) => ({
         url: "/admin/products",

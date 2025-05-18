@@ -323,9 +323,9 @@ async function deleteProduct(productId) {
 
 // admin users methods
 async function fetchUsers() {
-  const { rows } = await client.query(
-    `SELECT id, username, name, email_address, phone, mailing_address, billing_information FROM users`
-  );
+  const { rows } = await client.query(`
+    SELECT id, username, name, is_admin, email_address email_address, phone, mailing_address, billing_information FROM users
+    `);
 
   return rows;
 }
