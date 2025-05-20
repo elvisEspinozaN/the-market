@@ -141,6 +141,140 @@
   color: #856404;
 }
 
+.usersTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.usersTable thead {
+  background-color: #f8f9fa;
+}
+
+.usersTable th {
+  color: darkslateblue;
+  text-align: left;
+  padding: 1.1rem;
+  border-bottom: 2px solid silver;
+}
+
+.usersTable td {
+  color: dimgray;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.usersTable tr:hover {
+  background-color: #f8f9fa;
+}
+
+.userEditContainer {
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.usersActions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.usersActionButton {
+  background: none;
+  border: none;
+  color: dimgray;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
+}
+
+form label {
+  color: darkslateblue;
+}
+
+form input {
+  padding: 1rem;
+  border: 1px solid silver;
+  font-size: 1rem;
+  width: 100%;
+}
+
+form button {
+  background: darkslateblue;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #1a335c;
+}
+
+.cancelButton {
+  background: #ddd;
+  color: #333;
+}
+
+.cancelButton:hover {
+  background: #ccc;
+}
+
+.userViewContainer {
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.userViewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid silver;
+}
+
+.userViewHeader h3 {
+  color: darkslateblue;
+  margin: 0;
+}
+
+.userViewDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.userViewDisplay p {
+  color: dimgray;
+  margin: 0;
+}
+
+.userViewHeader button {
+  background: #ddd;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.userViewHeader button:hover {
+  background: #ccc;
+}
+
 .errorMessage {
   color: #dc3545;
   padding: 1rem;

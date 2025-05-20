@@ -66,4 +66,5 @@ export const {
   useCreateProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useUpdateUserMutation,
 } = adminApi;

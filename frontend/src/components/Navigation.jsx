@@ -1,17 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "../styles/Navigation.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../app/authSlice";
+import { useSelector } from "react-redux";
 
 const Navigation = () => {
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
 
   return (
     <nav className={styles.nav}>
@@ -39,7 +31,6 @@ const Navigation = () => {
               <Link to="/profile" className={styles.navLink}>
                 Profile
               </Link>
-              <button onClick={handleLogout}>Logout</button>
             </>
           ) : (
             <Link to="/login" className={styles.navLink}>
