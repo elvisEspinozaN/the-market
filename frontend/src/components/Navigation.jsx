@@ -23,23 +23,36 @@ const Navigation = () => {
 
           {user ? (
             <>
-              {user.is_admin && (
-                <Link to="/dashboard" className={styles.navLink}>
-                  Dashboard
-                </Link>
+              {user.is_admin ? (
+                <>
+                  <Link to="/dashboard" className={styles.navLink}>
+                    Dashboard
+                  </Link>
+                  <Link to="/profile" className={styles.navLink}>
+                    Profile
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/profile" className={styles.navLink}>
+                    Profile
+                  </Link>
+                  <Link to="/cart" className={styles.navLink}>
+                    Cart
+                  </Link>
+                </>
               )}
-              <Link to="/profile" className={styles.navLink}>
-                Profile
-              </Link>
             </>
           ) : (
-            <Link to="/login" className={styles.navLink}>
-              Login
-            </Link>
+            <>
+              <Link to="/login" className={styles.navLink}>
+                Login
+              </Link>
+              <Link to="/cart" className={styles.navLink}>
+                Cart
+              </Link>
+            </>
           )}
-          <Link to="/cart" className={styles.navLink}>
-            Cart
-          </Link>
         </div>
       </div>
     </nav>

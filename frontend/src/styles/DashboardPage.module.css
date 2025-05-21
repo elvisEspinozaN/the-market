@@ -17,6 +17,12 @@
   margin-bottom: 1.5rem;
 }
 
+.adminContentHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .tabContainer {
   display: flex;
   gap: 1rem;
@@ -322,6 +328,19 @@ form button:hover {
   height: auto;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.logoutButton {
+  background: none;
+  border: none;
+  color: dimgray;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.logoutButton:hover {
+  color: darkslateblue;
 }
 
 .errorMessage {
