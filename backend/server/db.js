@@ -321,6 +321,11 @@ async function deleteProduct(productId) {
   );
 }
 
+async function fetchAllProducts() {
+  const { rows } = await client.query(`SELECT * FROM products`);
+  return rows;
+}
+
 // admin users methods
 async function fetchUsers() {
   const { rows } = await client.query(`
@@ -376,4 +381,5 @@ module.exports = {
   updateCartItem,
   removeFromCart,
   checkoutCart,
+  fetchAllProducts,
 };

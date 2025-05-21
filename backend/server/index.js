@@ -21,6 +21,7 @@ const {
   updateCartItem,
   removeFromCart,
   checkoutCart,
+  fetchAllProducts,
 } = require("./db");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
@@ -228,6 +229,20 @@ app.delete(
     try {
       await deleteProduct(req.params.id);
       res.sendStatus(204);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+app.get(
+  "/api/admin/products/all",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const products = await fetchAllProducts();
+      res.json(products);
     } catch (err) {
       next(err);
     }

@@ -144,7 +144,6 @@
 .usersTable {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
   background: white;
   border-radius: 12px;
   overflow: hidden;
@@ -260,7 +259,6 @@ form button:hover {
 }
 
 .userViewDisplay p {
-  color: dimgray;
   margin: 0;
 }
 
@@ -273,6 +271,57 @@ form button:hover {
 
 .userViewHeader button:hover {
   background: #ccc;
+}
+
+.productsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid silver;
+  margin-bottom: 2rem;
+}
+
+.productsHeader h3 {
+  color: darkslateblue;
+  font-size: 1.2rem;
+}
+
+.productsHeader button {
+  background: darkslateblue;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.productsHeader button:hover {
+  background: #1a335c;
+}
+
+.productViewDisplay {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.productViewImageContainer {
+  flex: 1 1 300px;
+  max-width: 400px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productViewImage {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .errorMessage {

@@ -32,6 +32,11 @@ export const adminApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Users"],
     }),
 
+    fetchAllProducts: builder.query({
+      query: () => "/admin/products/all",
+      providesTags: ["Products"],
+    }),
+
     createProduct: builder.mutation({
       query: (body) => ({
         url: "/admin/products",
@@ -44,9 +49,10 @@ export const adminApi = apiSlice.injectEndpoints({
     updateProduct: builder.mutation({
       query: ({ id, ...body }) => ({
         url: `/admin/products/${id}`,
-        method: "POST",
+        method: "PUT",
         body,
       }),
+      invalidatesTags: ["Products"],
     }),
 
     deleteProduct: builder.mutation({
@@ -67,4 +73,5 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useUpdateUserMutation,
+  useFetchAllProductsQuery,
 } = adminApi;
