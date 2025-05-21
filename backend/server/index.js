@@ -21,6 +21,7 @@ const {
   updateCartItem,
   removeFromCart,
   checkoutCart,
+  fetchAllProducts,
 } = require("./db");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
@@ -234,15 +235,44 @@ app.delete(
   }
 );
 
+app.get(
+  "/api/admin/products/all",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const products = await fetchAllProducts();
+      res.json(products);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 // admin auth routes
 app.get("/api/admin/users", requiredUser, isAdmin, async (req, res, next) => {
   try {
     const users = await fetchUsers();
+
     res.json(users);
   } catch (err) {
     next(err);
   }
 });
+
+app.put(
+  "/api/admin/users/:id",
+  requiredUser,
+  isAdmin,
+  async (req, res, next) => {
+    try {
+      const updateUser = await updateUserProfile(req.params.id, req.body);
+      res.json(updateUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 app.post(
   "/api/admin/users/:id/make-admin",

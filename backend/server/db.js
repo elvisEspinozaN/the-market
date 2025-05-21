@@ -321,11 +321,16 @@ async function deleteProduct(productId) {
   );
 }
 
+async function fetchAllProducts() {
+  const { rows } = await client.query(`SELECT * FROM products`);
+  return rows;
+}
+
 // admin users methods
 async function fetchUsers() {
-  const { rows } = await client.query(
-    `SELECT id, username, name, email_address, phone, mailing_address, billing_information FROM users`
-  );
+  const { rows } = await client.query(`
+    SELECT id, username, name, is_admin, email_address email_address, phone, mailing_address, billing_information FROM users
+    `);
 
   return rows;
 }
@@ -376,4 +381,5 @@ module.exports = {
   updateCartItem,
   removeFromCart,
   checkoutCart,
+  fetchAllProducts,
 };

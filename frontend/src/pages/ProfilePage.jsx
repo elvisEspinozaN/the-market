@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/ProfilePage.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateProfileMutation } from "../app/userApiSlice";
+import { useUpdateProfileMutation } from "../app/userApi";
 import { logout, setCredentials } from "../app/authSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -131,10 +131,20 @@ const ProfilePage = () => {
               <h3>About You</h3>
               {!editMode ? (
                 <div className={styles.accountDisplayed}>
-                  <p>Full Name: {user.name}</p>
-                  <p>Phone Number: {user.phone}</p>
-                  <p>Mailing Address: {user.mailing_address}</p>
-                  <p>Billing Info: {user.billing_information}</p>
+                  <p>
+                    <strong>Full Name: </strong>
+                    {user.name}
+                  </p>
+                  <p>
+                    <strong>Phone: </strong>
+                    {user.phone}
+                  </p>
+                  <p>
+                    <strong>Address: </strong> {user.mailing_address}
+                  </p>
+                  <p>
+                    <strong>Billing Info: </strong> {user.billing_information}
+                  </p>
                   <button onClick={() => setEditMode(true)}>
                     Edit Profile
                   </button>

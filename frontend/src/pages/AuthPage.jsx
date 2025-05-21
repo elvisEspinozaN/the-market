@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "../styles/AuthPage.module.css";
-import { useLoginMutation, useRegisterMutation } from "../app/authApiSlice";
+import { useLoginMutation, useRegisterMutation } from "../app/authApi";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../app/authSlice";
 import { useNavigate } from "react-router-dom";

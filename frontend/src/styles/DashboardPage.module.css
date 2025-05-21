@@ -1,0 +1,334 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 80vh;
+}
+
+.adminContent {
+  background-color: floralwhite;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.adminContent h3 {
+  color: darkslateblue;
+  margin-bottom: 1.5rem;
+}
+
+.tabContainer {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 2px solid silver;
+}
+
+.tabContainer button {
+  background: none;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  color: dimgray;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.tabContainer button:hover {
+  color: darkslateblue;
+  border-bottom: 2px solid darkslateblue;
+}
+
+.tabContainer .activeTab {
+  color: darkslateblue;
+  border-bottom: 2px solid darkslateblue;
+}
+
+.dashboardContent {
+  background-color: floralwhite;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.overviewQuickContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.overviewQuickView {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overviewQuickViewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.overviewQuickViewHeader h3 {
+  color: darkslateblue;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.overviewQuickViewHeader p {
+  margin: 0;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.overviewQuickViewStat {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.overviewDepthContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.overviewDepthView {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.overviewDepthView ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.overviewDepthView li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+  color: dimgray;
+  font-size: 1rem;
+}
+
+.lowStockContainer {
+  background: #fff3cd;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid #fff3cd;
+}
+
+.lowStockContainer h4 {
+  color: #856404;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.lowStockContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lowStockContainer li {
+  padding: 0.5rem 0;
+  color: #856404;
+}
+
+.usersTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.usersTable thead {
+  background-color: #f8f9fa;
+}
+
+.usersTable th {
+  color: darkslateblue;
+  text-align: left;
+  padding: 1.1rem;
+  border-bottom: 2px solid silver;
+}
+
+.usersTable td {
+  color: dimgray;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.usersTable tr:hover {
+  background-color: #f8f9fa;
+}
+
+.userEditContainer {
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.usersActions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.usersActionButton {
+  background: none;
+  border: none;
+  color: dimgray;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 500px;
+}
+
+form label {
+  color: darkslateblue;
+}
+
+form input {
+  padding: 1rem;
+  border: 1px solid silver;
+  font-size: 1rem;
+  width: 100%;
+}
+
+form button {
+  background: darkslateblue;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: #1a335c;
+}
+
+.cancelButton {
+  background: #ddd;
+  color: #333;
+}
+
+.cancelButton:hover {
+  background: #ccc;
+}
+
+.userViewContainer {
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.userViewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid silver;
+}
+
+.userViewHeader h3 {
+  color: darkslateblue;
+  margin: 0;
+}
+
+.userViewDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.userViewDisplay p {
+  margin: 0;
+}
+
+.userViewHeader button {
+  background: #ddd;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.userViewHeader button:hover {
+  background: #ccc;
+}
+
+.productsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid silver;
+  margin-bottom: 2rem;
+}
+
+.productsHeader h3 {
+  color: darkslateblue;
+  font-size: 1.2rem;
+}
+
+.productsHeader button {
+  background: darkslateblue;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.productsHeader button:hover {
+  background: #1a335c;
+}
+
+.productViewDisplay {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.productViewImageContainer {
+  flex: 1 1 300px;
+  max-width: 400px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productViewImage {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.errorMessage {
+  color: #dc3545;
+  padding: 1rem;
+  background: #f8d7da;
+  border-radius: 4px;
+  margin: 1rem 0;
+  border: 1px solid #f5c2c7;
+}
