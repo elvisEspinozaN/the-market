@@ -27,12 +27,22 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
 const app = express();
-client.connect();
 
 // middleware
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Market API");
+});
+
+app.get("/health", (req, res) => res.sendStatus(200));
+
+client
+  .connect()
+  .then(() => console.log("Database connected"))
+  .catch((err) => console.error("Database connection error", err));
 
 // auth middleware
 app.use(async (req, res, next) => {

@@ -16,6 +16,8 @@ const {
 
 async function seed() {
   await client.connect();
+  console.log("Database Connected");
+
   await createTable();
   console.log("\n- Tables created");
 
