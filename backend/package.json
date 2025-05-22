@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js",
-    "start:dev": "nodemon server/index.js",
-    "seed": "node server/seed.js"
+    "start": "node server.js",
+    "seed": "node server/seed.js",
+    "start:dev": "nodemon server/index.js"
   },
   "author": "Elvis Espinoza",
   "license": "ISC",
