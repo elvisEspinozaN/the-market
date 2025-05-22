@@ -42,6 +42,8 @@ app.get("/health", (req, res) => res.sendStatus(200));
 client
   .connect()
   .then(() => console.log("Database connected"))
+  .then(() => client.query("SELECT NOW()"))
+  .then((res) => console.log("Database timestamp:", res.rows[0].now))
   .catch((err) => console.error("Database connection error", err));
 
 // auth middleware
