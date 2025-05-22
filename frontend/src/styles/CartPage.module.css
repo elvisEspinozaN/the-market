@@ -1,0 +1,150 @@
+.cartContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 80vh;
+  display: flex;
+  gap: 2rem;
+}
+
+.cartContainerItems {
+  flex: 2;
+  background-color: floralwhite;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cartContainerItemsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid silver;
+}
+
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid silver;
+}
+
+.cartImageContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 2;
+}
+
+.cartImageContainer img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background: white;
+  padding: 0.5rem;
+  border: 1px solid silver;
+}
+
+.cartImageContainerDetails p:nth-child(2) {
+  color: dimgray;
+  font-size: 0.9rem;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: dimgray;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.7rem;
+  text-decoration: underline;
+}
+
+.cartQuantityControl {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cartQuantityControlButton {
+  background: #f8f9fa;
+  border: 1px solid silver;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartQuantityControlButton:disabled {
+  cursor: not-allowed;
+}
+
+.orderSummaryContainer {
+  flex: 1;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* height: fit-content; */
+}
+
+.orderSummaryDetails {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  border-bottom: 1px solid silver;
+}
+
+.orderSummaryTotal {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin: 2rem 0;
+}
+
+.orderSummaryContainer label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  color: dimgray;
+  font-size: 0.8rem;
+}
+
+.orderSummaryContainer input {
+  padding: 0.8rem;
+}
+
+/* Empty cart state */
+.cartContainer > p {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: dimgray;
+  background-color: floralwhite;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.checkoutButton {
+  width: 100%;
+  padding: 1rem;
+  background: darkslateblue;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.checkoutButton:hover {
+  background: #1a335c;
+}
+
+.checkoutMessage {
+  color: #155724;
+}

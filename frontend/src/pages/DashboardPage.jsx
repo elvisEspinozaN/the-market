@@ -16,9 +16,14 @@ import { MdDeleteForever, MdOutlineDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { FaEye } from "react-icons/fa";
 import { useFetchAllProductsQuery } from "../app/adminApi";
+import { useDispatch } from "react-redux";
+import { logout } from "../app/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // user
   const { user } = useSelector((state) => state.auth);
@@ -72,6 +77,11 @@ const AdminDashboard = () => {
       console.error("Error on updating user: ", err);
       setUserError(err.data?.message || "Something went wrong, try again.");
     }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
   };
 
   // product
@@ -146,7 +156,12 @@ const AdminDashboard = () => {
   return (
     <div className={styles.container}>
       <div className={styles.adminContent}>
-        <h3>Welcome {user.name}</h3>
+        <div className={styles.adminContentHeader}>
+          <h3>Welcome {user.name}</h3>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            (Logout)
+          </button>
+        </div>
         <div className={styles.tabContainer}>
           <button
             className={`${activeTab === "overview" ? styles.activeTab : ""}`}

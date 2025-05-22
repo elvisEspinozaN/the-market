@@ -3,6 +3,7 @@ import { useGetProductByIdQuery, useGetProductsQuery } from "../app/productApi";
 import styles from "../styles/ProductDetailPage.module.css";
 import ProductCard from "../components/ProductCard";
 import { useState } from "react";
+import { useAddToCartMutation } from "../app/cartApi";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -13,6 +14,20 @@ const ProductDetailPage = () => {
     errorProducts,
   } = useGetProductsQuery();
   const [activeTab, setActiveTab] = useState("reviews");
+  const [cartMessage, setCartMessage] = useState(null);
+  const [addToCart] = useAddToCartMutation();
+
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({ productId: id, quantity: 1 }).unwrap();
+      setCartMessage("Added to cart!");
+    } catch (err) {
+      console.error("Error on adding product to cart: ", err);
+      setCartMessage(err.data?.message || "Failed to add to cart, try again");
+    }
+
+    setTimeout(() => setCartMessage(null), 3000);
+  };
 
   if (isLoading) return <p>Loading product...</p>;
   if (error) return <p>Error loading product</p>;
@@ -40,11 +55,16 @@ const ProductDetailPage = () => {
           <p>{product.description}</p>
         </div>
         <div className={styles.actions}>
-          <button className={styles.addToCart} disabled={product.stock === 0}>
+          <button
+            onClick={handleAddToCart}
+            className={styles.addToCart}
+            disabled={product.stock === 0}
+          >
             {product.stock === 0 ? "Out of stock" : "Add to Cart"}
           </button>
           <button className={styles.addToWishlist}>Wishlist</button>
         </div>
+        {cartMessage && <p className={styles.cartMessage}>{cartMessage}</p>}
       </div>
 
       <div className={styles.tabContainer}>
