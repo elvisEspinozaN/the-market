@@ -165,3 +165,8 @@
   flex: 0 0 auto;
   width: 200px;
 }
+
+.cartMessage {
+  color: green;
+  margin-top: 1rem;
+}
