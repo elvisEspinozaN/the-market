@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token || localStorage.getItem("token");
       if (token) {

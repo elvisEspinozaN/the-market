@@ -4,6 +4,8 @@ import styles from "../styles/ProductDetailPage.module.css";
 import ProductCard from "../components/ProductCard";
 import { useState } from "react";
 import { useAddToCartMutation } from "../app/cartApi";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -16,8 +18,14 @@ const ProductDetailPage = () => {
   const [activeTab, setActiveTab] = useState("reviews");
   const [cartMessage, setCartMessage] = useState(null);
   const [addToCart] = useAddToCartMutation();
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
+    if (!user?.id) {
+      navigate("/register");
+      return;
+    }
     try {
       await addToCart({ productId: id, quantity: 1 }).unwrap();
       setCartMessage("Added to cart!");
