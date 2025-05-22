@@ -11,7 +11,7 @@ const AuthPage = () => {
     username: "",
     password: "",
     name: "",
-    email: "",
+    email_address: "",
   });
   const [login] = useLoginMutation();
   const [register] = useRegisterMutation();
@@ -77,9 +77,9 @@ const AuthPage = () => {
             <input
               type="email"
               placeholder="Email"
-              value={formData.email}
+              value={formData.email_address}
               onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
+                setFormData({ ...formData, email_address: e.target.value })
               }
               required
             />
