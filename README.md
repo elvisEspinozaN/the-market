@@ -5,8 +5,26 @@ _Product showcase and hero section_
 
 ![Product Details](https://i.imgur.com/0ppgHoN.png)  
 _Product details with cart functionality_
+
 ![Admin Dashboard](https://i.imgur.com/CQwIuuK.png)  
-_Administrative product and user management_
+_Administrative product and user dashboard_
+
+## Admin Interface Highlights
+
+| User Management                                     | Product Control                                        |
+| --------------------------------------------------- | ------------------------------------------------------ |
+| ![User Management](https://i.imgur.com/fFfWs1I.png) | ![Product Management](https://i.imgur.com/R8mYrXf.png) |
+| _Admin user list with promotion controls_           | _Product inventory with stock tracking_                |
+
+| User Profile                                  | Product Details                                  |
+| --------------------------------------------- | ------------------------------------------------ |
+| ![View User](https://i.imgur.com/TW9cUHs.png) | ![View Product](https://i.imgur.com/xWRmXzB.png) |
+| _Detailed user profile view_                  | _Complete product specifications_                |
+
+| User Editing                                  | Product Creation                                   |
+| --------------------------------------------- | -------------------------------------------------- |
+| ![Edit User](https://i.imgur.com/IkmJXON.png) | ![Create Product](https://i.imgur.com/zeRxQ3U.png) |
+| _User profile modification interface_         | _New product submission form_                      |
 
 ## Overview
 
