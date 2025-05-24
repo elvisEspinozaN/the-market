@@ -122,7 +122,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     try {
       await updateProduct({
-        productId: editProduct.id,
+        id: editProduct.id,
         ...editProductForm,
       }).unwrap();
       setEditProduct(null);
