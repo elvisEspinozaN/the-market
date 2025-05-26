@@ -109,6 +109,10 @@ Base URL: `https://the-market-backend.onrender.com/api`
 
 [Frontend Deployment](https://the-market-app.netlify.app/) | [Backend API](https://the-market-backend.onrender.com/api/products)
 
+### 🎥 Walkthrough Video
+
+[![Watch the demo](https://i.imgur.com/UXi3I2Q.png)](https://www.loom.com/share/522cccc5fc324682bad8270982dcfe34?sid=6ca518cc-d29e-4945-a06c-6a817db22803)
+
 ## Contact
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/elvis-espinoza/)  

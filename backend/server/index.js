@@ -33,8 +33,13 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Market API");
+app.get("/", async (req, res, next) => {
+  try {
+    const products = await fetchAllProducts();
+    res.json(products);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.get("/health", (req, res) => res.sendStatus(200));
