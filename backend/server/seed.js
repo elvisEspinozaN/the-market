@@ -1,18 +1,13 @@
-// server/seed.js
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { faker } = require("@faker-js/faker");
-const {
-  client,
-  createTable,
-  createUser,
-  createProduct,
-  makeAdmin,
-  fetchUsers,
-  fetchProducts,
-  addToCart,
-  getCart,
-} = require("./db");
+
+const { client } = require("./db/client");
+const { createTable } = require("./db/schema");
+const { createUser, fetchUsers } = require("./db/users");
+const { createProduct, fetchProducts } = require("./db/products");
+const { makeAdmin } = require("./db/admin");
+const { addToCart, getCart } = require("./db/cart");
 
 async function seed() {
   await client.connect();
@@ -46,15 +41,25 @@ async function seed() {
   const products = await fetchProducts();
   console.log(products.slice(0, 3));
 
+  console.log(`\n- Total users: ${users.length}`);
+  console.log(`- Total products: ${products.length}`);
+
   // Test cart functionality
   const testUser = users[1];
+  console.log(
+    `- Using user for cart test: ${testUser.username} (ID: ${testUser.id})`
+  );
   const [product1, product2] = products;
 
-  await addToCart(testUser.id, product1.id, 2);
-  await addToCart(testUser.id, product2.id, 1);
-  console.log("\n- Cart after adding items: ");
-  let cart = await getCart(testUser.id);
-  console.log(cart);
+  try {
+    await addToCart(testUser.id, product1.id, 2);
+    await addToCart(testUser.id, product2.id, 1);
+    console.log("\n- Cart after adding items:");
+    let cart = await getCart(testUser.id);
+    console.log(cart);
+  } catch (err) {
+    console.error("Error adding items to cart:", err);
+  }
 
   await client.end();
 }
@@ -281,6 +286,7 @@ const realisticProducts = [
     stock: 60,
   },
 ];
+
 // Realistic user data
 const realisticUsers = [
   {
@@ -330,4 +336,9 @@ async function seedRealisticProducts() {
   }
 }
 
-seed();
+if (require.main === module) {
+  seed().catch((err) => {
+    console.error("Seeding error:", err);
+    process.exit(1);
+  });
+}
