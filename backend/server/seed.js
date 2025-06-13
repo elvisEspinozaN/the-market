@@ -1,12 +1,11 @@
 require("dotenv").config();
-const jwt = require("jsonwebtoken");
 const { faker } = require("@faker-js/faker");
 
-const { client } = require("./db/client");
+const client = require("./db/client");
 const { createTable } = require("./db/schema");
-const { createUser, fetchUsers } = require("./db/users");
+const { createUser } = require("./db/users");
 const { createProduct, fetchProducts } = require("./db/products");
-const { makeAdmin } = require("./db/admin");
+const { makeAdmin, fetchUsers } = require("./db/admin");
 const { addToCart, getCart } = require("./db/cart");
 
 async function seed() {
