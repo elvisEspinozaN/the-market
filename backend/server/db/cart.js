@@ -68,6 +68,7 @@ async function removeFromCart(cartItemId) {
   );
 }
 
+// clear all items from a user's cart
 async function checkoutCart(userId) {
   await pool.query(
     `

@@ -8,11 +8,6 @@ const pool = require("./db/client");
 
 const app = express();
 
-// middleware
-app.use(express.json());
-app.use(morgan("dev"));
-app.use(authenticateUser);
-
 const allowedOrigins = process.env.CORS_ORIGIN.split(",");
 
 app.use(
@@ -26,6 +21,11 @@ app.use(
     credentials: true,
   })
 );
+
+// middleware
+app.use(express.json());
+app.use(morgan("dev"));
+app.use(authenticateUser);
 
 const port = process.env.PORT || 3000;
 
