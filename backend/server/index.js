@@ -11,8 +11,21 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(authenticateUser);
+
+const allowedOrigins = process.env.CORS_ORIGIN.split(",");
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 
 const port = process.env.PORT || 3000;
 
@@ -34,6 +47,7 @@ app.use("/api/products", require("./api/products"));
 app.use("/api/cart", require("./api/cart"));
 app.use("/api/admin", require("./api/admin"));
 
+// start server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   pool

@@ -1,6 +1,7 @@
 const pool = require("./client");
 const uuid = require("uuid");
 
+// fetch all products (limited data)
 async function fetchProducts() {
   const { rows } = await pool.query(
     `SELECT id, name, description, price, image_url, stock FROM products`
@@ -9,6 +10,7 @@ async function fetchProducts() {
   return rows;
 }
 
+// fetch a single product by id
 async function fetchProductById(productId) {
   const {
     rows: [product],
@@ -23,6 +25,7 @@ async function fetchProductById(productId) {
   return product;
 }
 
+// create a new product with required fields
 async function createProduct({ name, description, price, image_url, stock }) {
   const {
     rows: [product],
@@ -38,6 +41,7 @@ async function createProduct({ name, description, price, image_url, stock }) {
   return product;
 }
 
+// update an existing product by id
 async function updateProduct(
   productId,
   { name, description, price, image_url, stock, is_active }
@@ -57,6 +61,7 @@ async function updateProduct(
   return product;
 }
 
+// delete product by id
 async function deleteProduct(productId) {
   await pool.query(
     `

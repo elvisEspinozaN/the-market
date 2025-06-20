@@ -1,4 +1,3 @@
-// server/db/schema.js
 const pool = require("./client");
 
 async function createTable() {

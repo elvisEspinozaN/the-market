@@ -10,6 +10,7 @@ const {
   updateUserProfile,
 } = require("../db/users");
 
+// register new user
 router.post("/register", validateUser, async (req, res, next) => {
   try {
     const user = await createUser(req.body);
@@ -20,6 +21,7 @@ router.post("/register", validateUser, async (req, res, next) => {
   }
 });
 
+// login an existing user
 router.post("/login", async (req, res, next) => {
   try {
     const user = await authenticate(req.body.username, req.body.password);
@@ -33,6 +35,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+// get authenticated user's profile
 router.get("/me", requireUser, async (req, res, next) => {
   try {
     const user = await fetchUserById(req.user.id);
@@ -42,6 +45,7 @@ router.get("/me", requireUser, async (req, res, next) => {
   }
 });
 
+// update authenticated user's profile
 router.put("/me", requireUser, async (req, res, next) => {
   try {
     const updateUser = await updateUserProfile(req.user.id, req.body);

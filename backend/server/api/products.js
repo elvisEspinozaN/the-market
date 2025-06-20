@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { fetchProducts, fetchProductById } = require("../db/products");
 
-// public
+// public routes
+
+// get all products (limited data)
 router.get("/", async (req, res, next) => {
   try {
     const products = await fetchProducts();
@@ -12,6 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// get a single product by id
 router.get("/:id", async (req, res, next) => {
   try {
     const product = await fetchProductById(req.params.id);

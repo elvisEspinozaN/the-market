@@ -9,6 +9,7 @@ const {
   removeFromCart,
 } = require("../db/cart");
 
+// get current user's cart
 router.get("/", requireUser, async (req, res, next) => {
   try {
     const cart = await getCart(req.user.id);
@@ -18,6 +19,7 @@ router.get("/", requireUser, async (req, res, next) => {
   }
 });
 
+// add item to cart
 router.post("/", requireUser, async (req, res, next) => {
   try {
     const cartItem = await addToCart(
@@ -31,6 +33,7 @@ router.post("/", requireUser, async (req, res, next) => {
   }
 });
 
+// update quantity of a cart item
 router.put("/:cartItemId", requireUser, async (req, res, next) => {
   try {
     const updateItem = await updateCartItem(
@@ -43,6 +46,7 @@ router.put("/:cartItemId", requireUser, async (req, res, next) => {
   }
 });
 
+// remove item from cart
 router.delete("/:cartItemId", requireUser, async (req, res, next) => {
   try {
     await removeFromCart(req.params.cartItemId);
@@ -52,6 +56,7 @@ router.delete("/:cartItemId", requireUser, async (req, res, next) => {
   }
 });
 
+// checkout and clear cart
 router.post("/checkout", requireUser, async (req, res, next) => {
   try {
     await checkoutCart(req.user.id);

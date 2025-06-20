@@ -14,7 +14,9 @@ const {
   deleteProduct,
 } = require("../db/products");
 
-// users
+// Admin-only User routes
+
+// get all users
 router.get("/users", requireUser, requireAdmin, async (req, res, next) => {
   try {
     const users = await fetchUsers();
@@ -24,6 +26,7 @@ router.get("/users", requireUser, requireAdmin, async (req, res, next) => {
   }
 });
 
+// update profile by id
 router.put("/users/:id", requireUser, requireAdmin, async (req, res, next) => {
   try {
     const updateUser = await updateUserProfile(req.params.id, req.body);
@@ -33,6 +36,7 @@ router.put("/users/:id", requireUser, requireAdmin, async (req, res, next) => {
   }
 });
 
+// promote user to admin
 router.post(
   "/users/:id/make-admin",
   requireUser,
@@ -47,6 +51,7 @@ router.post(
   }
 );
 
+// delete user by id
 router.delete(
   "/users/:id",
   requireUser,
@@ -61,7 +66,9 @@ router.delete(
   }
 );
 
-// products
+// Admin-only Product routes
+
+// create a new product
 router.post("/products", requireUser, requireAdmin, async (req, res, next) => {
   try {
     const product = await createProduct(req.body);
@@ -71,6 +78,7 @@ router.post("/products", requireUser, requireAdmin, async (req, res, next) => {
   }
 });
 
+// update product by id
 router.put(
   "/products/:id",
   requireUser,
@@ -85,6 +93,7 @@ router.put(
   }
 );
 
+// delete product by id
 router.delete(
   "/products/:id",
   requireUser,
@@ -99,6 +108,7 @@ router.delete(
   }
 );
 
+// fetch all products (all data)
 router.get(
   "/products/all",
   requireUser,

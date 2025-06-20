@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// create a new user
 async function createUser({
   username,
   password,
@@ -40,6 +41,7 @@ async function createUser({
   return user;
 }
 
+// fetch public user info by id
 async function fetchUserById(userId) {
   const {
     rows: [user],
@@ -54,6 +56,7 @@ async function fetchUserById(userId) {
   return user;
 }
 
+// update user profile info
 async function updateUserProfile(userId, updates) {
   const {
     rows: [user],
@@ -77,6 +80,7 @@ async function updateUserProfile(userId, updates) {
   return user;
 }
 
+// verify username/password
 async function authenticate(username, password) {
   const {
     rows: [user],
@@ -95,6 +99,7 @@ async function authenticate(username, password) {
   return null;
 }
 
+// validate JWT and fetch user by token
 async function findUserByToken(token) {
   try {
     const { id } = jwt.verify(token, JWT_SECRET);

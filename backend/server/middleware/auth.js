@@ -1,5 +1,6 @@
 const { findUserByToken } = require("../db/users");
 
+// authenticate user via bearer token
 async function authenticateUser(req, res, next) {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
@@ -16,6 +17,7 @@ async function authenticateUser(req, res, next) {
   }
 }
 
+// valdate user iinput upon registration
 function validateUser(req, res, next) {
   const { username, password, email_address } = req.body;
 
@@ -39,6 +41,7 @@ function validateUser(req, res, next) {
   next();
 }
 
+// enforce authentication
 function requireUser(req, res, next) {
   if (!req.user) {
     return res.sendStatus(401);
@@ -46,6 +49,7 @@ function requireUser(req, res, next) {
   next();
 }
 
+// enforce admin-only access
 function requireAdmin(req, res, next) {
   if (!req.user?.is_admin) {
     return res.sendStatus(403);
