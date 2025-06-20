@@ -1,8 +1,8 @@
 // server/db/schema.js
-const client = require("./client");
+const pool = require("./client");
 
 async function createTable() {
-  await client.query(`
+  await pool.query(`
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
     DROP TABLE IF EXISTS order_items;

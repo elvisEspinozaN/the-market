@@ -1,7 +1,7 @@
-const client = require("./client");
+const pool = require("./client");
 
 async function fetchUsers() {
-  const { rows } = await client.query(`
+  const { rows } = await pool.query(`
     SELECT id, username, name, is_admin, email_address, phone, mailing_address, billing_information FROM users
   `);
   return rows;
@@ -10,7 +10,7 @@ async function fetchUsers() {
 async function makeAdmin(userId) {
   const {
     rows: [user],
-  } = await client.query(
+  } = await pool.query(
     `
     UPDATE users
     SET is_admin = TRUE, updated_at = CURRENT_TIMESTAMP
@@ -24,7 +24,7 @@ async function makeAdmin(userId) {
 }
 
 async function deleteUser(userId) {
-  await client.query(
+  await pool.query(
     `
     DELETE FROM users WHERE id = $1
     `,
@@ -32,8 +32,13 @@ async function deleteUser(userId) {
   );
 }
 
+async function fetchAllProducts() {
+  const { rows } = await pool.query(`SELECT * FROM products`);
+  return rows;
+}
+
 async function deleteProduct(productId) {
-  await client.query(
+  await pool.query(
     `
     DELETE FROM products WHERE id = $1
     `,
@@ -45,5 +50,6 @@ module.exports = {
   fetchUsers,
   makeAdmin,
   deleteUser,
+  fetchAllProducts,
   deleteProduct,
 };

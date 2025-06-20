@@ -1,8 +1,8 @@
-const client = require("./client");
+const pool = require("./client");
 const uuid = require("uuid");
 
 async function fetchProducts() {
-  const { rows } = await client.query(
+  const { rows } = await pool.query(
     `SELECT id, name, description, price, image_url, stock FROM products`
   );
 
@@ -12,7 +12,7 @@ async function fetchProducts() {
 async function fetchProductById(productId) {
   const {
     rows: [product],
-  } = await client.query(
+  } = await pool.query(
     `
     SELECT id, name, description, price, image_url, stock FROM products
     WHERE id = $1
@@ -26,7 +26,7 @@ async function fetchProductById(productId) {
 async function createProduct({ name, description, price, image_url, stock }) {
   const {
     rows: [product],
-  } = await client.query(
+  } = await pool.query(
     `
     INSERT INTO products (id, name, description, price, image_url, stock)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -44,7 +44,7 @@ async function updateProduct(
 ) {
   const {
     rows: [product],
-  } = await client.query(
+  } = await pool.query(
     `
     UPDATE products
     SET name = $1, description = $2, price = $3, image_url = $4, stock = $5, is_active = $6, updated_at = CURRENT_TIMESTAMP
@@ -58,17 +58,12 @@ async function updateProduct(
 }
 
 async function deleteProduct(productId) {
-  await client.query(
+  await pool.query(
     `
     DELETE FROM products WHERE id = $1
     `,
     [productId]
   );
-}
-
-async function fetchAllProducts() {
-  const { rows } = await client.query(`SELECT * FROM products`);
-  return rows;
 }
 
 module.exports = {
@@ -77,5 +72,4 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
-  fetchAllProducts,
 };

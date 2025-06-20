@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { faker } = require("@faker-js/faker");
 
-const client = require("./db/client");
+const pool = require("./db/client");
 const { createTable } = require("./db/schema");
 const { createUser } = require("./db/users");
 const { createProduct, fetchProducts } = require("./db/products");
@@ -9,9 +9,6 @@ const { makeAdmin, fetchUsers } = require("./db/admin");
 const { addToCart, getCart } = require("./db/cart");
 
 async function seed() {
-  await client.connect();
-  console.log("Database Connected");
-
   await createTable();
   console.log("\n- Tables created");
 
@@ -60,7 +57,7 @@ async function seed() {
     console.error("Error adding items to cart:", err);
   }
 
-  await client.end();
+  await pool.end();
 }
 
 // Realistic product data

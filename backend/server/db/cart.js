@@ -1,9 +1,9 @@
-const client = require("./client");
+const pool = require("./client");
 const uuid = require("uuid");
 const { fetchProductById } = require("./products");
 
 async function getCart(userId) {
-  const { rows } = await client.query(
+  const { rows } = await pool.query(
     `
     SELECT cart_items.id AS cart_item_id, cart_items.quantity,
     products.id AS product_id, products.name, products.description, products.price, products.image_url, products.stock FROM cart_items
@@ -23,7 +23,7 @@ async function addToCart(userId, productId, quantity) {
   }
   const {
     rows: [item],
-  } = await client.query(
+  } = await pool.query(
     `
     INSERT INTO cart_items (id, user_id, product_id, quantity)
     VALUES ($1, $2, $3, $4)
@@ -39,7 +39,7 @@ async function addToCart(userId, productId, quantity) {
 async function updateCartItem(cartItemId, quantity) {
   const {
     rows: [item],
-  } = await client.query(
+  } = await pool.query(
     `
     UPDATE cart_items
     SET quantity = $2, updated_at = CURRENT_TIMESTAMP
@@ -53,7 +53,7 @@ async function updateCartItem(cartItemId, quantity) {
 }
 
 async function removeFromCart(cartItemId) {
-  await client.query(
+  await pool.query(
     `
     DELETE FROM cart_items 
     WHERE id = $1
@@ -64,7 +64,7 @@ async function removeFromCart(cartItemId) {
 }
 
 async function checkoutCart(userId) {
-  await client.query(
+  await pool.query(
     `
     DELETE FROM cart_items 
     WHERE user_id = $1
