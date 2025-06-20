@@ -1,5 +1,5 @@
 require("dotenv").config();
-const client = require("./client");
+const pool = require("./client");
 const uuid = require("uuid");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -19,7 +19,7 @@ async function createUser({
 
   const {
     rows: [user],
-  } = await client.query(
+  } = await pool.query(
     `
     INSERT INTO users (id, username, password, name, email_address, phone, mailing_address, billing_information)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -43,7 +43,7 @@ async function createUser({
 async function fetchUserById(userId) {
   const {
     rows: [user],
-  } = await client.query(
+  } = await pool.query(
     `
     SELECT id, name, username, email_address, mailing_address FROM users 
     WHERE id = $1
@@ -57,7 +57,7 @@ async function fetchUserById(userId) {
 async function updateUserProfile(userId, updates) {
   const {
     rows: [user],
-  } = await client.query(
+  } = await pool.query(
     `UPDATE users
      SET name = $1, email_address = $2, phone = $3, 
          mailing_address = $4, billing_information = $5,
@@ -80,7 +80,7 @@ async function updateUserProfile(userId, updates) {
 async function authenticate(username, password) {
   const {
     rows: [user],
-  } = await client.query(
+  } = await pool.query(
     `
     SELECT * FROM users WHERE username = $1
     `,
@@ -88,6 +88,7 @@ async function authenticate(username, password) {
   );
 
   if (user && (await bcrypt.compare(password, user.password))) {
+    delete user.password;
     return user;
   }
 
@@ -99,7 +100,7 @@ async function findUserByToken(token) {
     const { id } = jwt.verify(token, JWT_SECRET);
     const {
       rows: [user],
-    } = await client.query(
+    } = await pool.query(
       `
       SELECT id, username, name, email_address, phone, mailing_address, billing_information, is_admin FROM users
       WHERE id = $1
