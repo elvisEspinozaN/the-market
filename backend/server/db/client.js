@@ -1,15 +1,22 @@
-require("dotenv").config();
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../../.env"),
+});
+
 const { Pool } = require("pg");
 
 // init PostgreSQL connection pool
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
+  ssl: {
+    rejectUnauthorized: false,
+    keepAlive: true,
+    keepAliveInitialDelayMillis: 10000,
+  },
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 5000, // fail quickly if connection can't be established
+  connectionTimeoutMillis: 10000,
 });
 
-// hadnles unexpected errors
+// handles unexpected errors
 pool.on("error", (err) => {
   console.error("Unexpected databse error: ", err.message);
 });
