@@ -1,4 +1,7 @@
-require("dotenv").config();
+require("dotenv").config({
+  path: require("path").resolve(__dirname, "../.env"),
+});
+
 const pool = require("./client");
 const uuid = require("uuid");
 const bcrypt = require("bcryptjs");
@@ -106,14 +109,14 @@ async function findUserByToken(token) {
     const {
       rows: [user],
     } = await pool.query(
-      `
-      SELECT id, username, name, email_address, phone, mailing_address, billing_information, is_admin FROM users
-      WHERE id = $1
-      `,
+      `SELECT id, username, name, email_address, phone, mailing_address, billing_information, is_admin
+       FROM users WHERE id = $1`,
       [id]
     );
+
     return user;
   } catch (error) {
+    console.error("Token verification failed:", error.message);
     return null;
   }
 }

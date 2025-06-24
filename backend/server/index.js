@@ -6,21 +6,26 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const { fetchAllProducts } = require("./db/admin");
+const { authenticateUser } = require("./middleware/auth");
+
 const pool = require("./db/client");
 
 const app = express();
 
 // Setup CORS
-const allowedOrigins =
-  process.env.CORS_ORIGIN?.split(",").map((origin) => origin.trim()) || [];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://the-market-app.netlify.app",
+];
 
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
       }
-      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
   })
@@ -35,6 +40,9 @@ app.get("/health", (req, res) => {
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+
+// Authentication middleware - MUST come after express.json()
+app.use(authenticateUser);
 
 // Routes
 app.get("/", async (req, res, next) => {

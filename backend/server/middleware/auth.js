@@ -4,15 +4,19 @@ const { findUserByToken } = require("../db/users");
 async function authenticateUser(req, res, next) {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "");
+
     if (token) {
       const user = await findUserByToken(token);
+
       if (!user?.id) {
         return res.sendStatus(401);
       }
       req.user = user;
     }
+
     next();
   } catch (err) {
+    console.error("Auth Middleware Error:", err);
     next(err);
   }
 }
@@ -54,6 +58,7 @@ function requireAdmin(req, res, next) {
   if (!req.user?.is_admin) {
     return res.sendStatus(403);
   }
+
   next();
 }
 

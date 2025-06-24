@@ -157,7 +157,7 @@ const AdminDashboard = () => {
     <div className={styles.container}>
       <div className={styles.adminContent}>
         <div className={styles.adminContentHeader}>
-          <h3>Welcome {user.name}</h3>
+          <h3>Welcome {user?.name || "Admin"}</h3>
           <button onClick={handleLogout} className={styles.logoutButton}>
             (Logout)
           </button>
